@@ -1,0 +1,162 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  color: #2f2a26;
+  background:
+    radial-gradient(circle at top, #fff7df 0%, transparent 42%),
+    linear-gradient(135deg, #fff4da, #ffdede);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 540px;
+  padding: 48px 32px;
+  overflow: hidden;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(103, 75, 55, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.cat-bow {
+  width: 140px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  transform-origin: center bottom;
+  animation: bow 1.8s ease-in-out infinite;
+}
+
+.cat-face {
+  position: relative;
+  z-index: 2;
+  font-size: 82px;
+  line-height: 1;
+  filter: drop-shadow(0 8px 8px rgba(80, 50, 30, 0.16));
+}
+
+.cat-paws {
+  margin-top: -10px;
+  font-size: 34px;
+  letter-spacing: 8px;
+  transform: rotate(90deg);
+}
+
+.card h1 {
+  margin-bottom: 14px;
+  font-size: clamp(34px, 8vw, 48px);
+  line-height: 1.1;
+}
+
+.description {
+  max-width: 400px;
+  margin: 0 auto 26px;
+  color: #75685e;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.redirect-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.countdown {
+  color: #5b514a;
+  font-size: 16px;
+}
+
+.countdown strong {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: #ec6b65;
+  border-radius: 50%;
+}
+
+button {
+  min-width: 140px;
+  padding: 13px 24px;
+  color: white;
+  background: #ec6b65;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(236, 107, 101, 0.28);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+button:hover {
+  background: #db554f;
+  box-shadow: 0 10px 22px rgba(236, 107, 101, 0.36);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #473d36;
+  outline-offset: 4px;
+}
+
+@keyframes bow {
+  0%,
+  20%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  45%,
+  65% {
+    transform: translateY(15px) rotate(12deg) scaleY(0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-bow {
+    animation: none;
+  }
+
+  button {
+    transition: none;
+  }
+}
