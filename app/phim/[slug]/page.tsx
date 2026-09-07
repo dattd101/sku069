@@ -58,7 +58,7 @@ export default async function MovieDetail({ params }: PageProps) {
               {episodes.map((episode, index) => (
                 <article className="episodeRow" key={`${episode.id}-${index}`}>
                   <div className="episodeMain">
-                    <strong>Xem trên {platformLabel(episode.platform)}</strong>
+                    <strong>{episode.title}</strong>
                     <span className={`platformBadge inline ${episode.platform}`}>
                       {platformLabel(episode.platform)}
                     </span>
