@@ -1,6 +1,6 @@
 # Movie Blog - Next.js 15
 
-Blog danh sách phim/tập phim từ Facebook, YouTube và TikTok.
+Blog danh sách phim từ Facebook, YouTube và TikTok. Giao diện chỉ hiển thị liên kết xem, không hiển thị số tập hoặc tên tập.
 
 ## Stack
 
@@ -97,7 +97,7 @@ Lưu ý: Rate limit là giới hạn số request từ cùng một nguồn trong
 ## Thêm phim
 
 1. Thêm thumbnail vào `public/uploads/`.
-2. Thêm 1 dòng vào sheet `movies`.
+2. Thêm 1 dòng vào cuối sheet `movies`. Phim ở dòng cuối hiển thị trước, chỉ lấy các dòng có đủ `id`, `slug` và `title`.
 3. Dùng `id` của phim đó làm `movie_id` cho các dòng trong sheet `episodes`.
 4. Commit + push GitHub.
 5. Vercel tự build/deploy lại.
@@ -111,7 +111,7 @@ Nếu dùng biến môi trường redirect trên Vercel, khai báo hai biến `N
 
 ## Phân trang
 
-Trang Home hiển thị tối đa **30 phim / trang**. Search và filter được áp dụng trước khi phân trang.
+Trang Home hiển thị tối đa **15 phim / trang**. Search và filter được áp dụng trước khi phân trang.
 
 ## Hydration warning do browser extension
 
@@ -120,3 +120,17 @@ Nếu DevTools/Next.js báo hydration mismatch với thuộc tính như `cz-shor
 ## Favicon
 
 Project có `app/icon.svg` theo phong cách biểu tượng Next.js (nền tròn đen, chữ N trắng). Next.js App Router tự nhận metadata icon từ file này.
+
+## Banner quảng cáo
+
+Ảnh và cấu hình Excel nằm trong [`public/banner-ads`](public/banner-ads/README.md). Điền link đích vào sheet `banners` của `banners.xlsx`, thay ảnh mẫu rồi build/deploy lại. Banner không ảnh hưởng thứ tự phim, tìm kiếm hoặc số phim trên mỗi trang.
+
+## Được xem nhiều
+
+Nút **Được xem nhiều** trong nhóm nền tảng xếp toàn bộ phim theo tổng lượt click giảm dần, sau đó phân trang 15 phim. Phim bằng lượt click giữ thứ tự mới nhất từ Excel. Chọn nền tảng khác sẽ trở lại thứ tự mới nhất.
+
+Mỗi click trong `article.movieCard` của phim (ảnh, tiêu đề, nút xem hoặc nội dung thẻ) cộng một lượt; click chuột giữa cũng được ghi nhận. Không đếm banner, tải trang, hoặc prefetch. Đây là tổng click, không phải số người xem duy nhất hay lượt xem video hoàn tất.
+
+Lượt click được lưu bằng `localStorage` ngay trên trình duyệt, không cần API, Redis hoặc cấu hình Vercel. Tải lại trang vẫn giữ số đếm; các tab cùng trình duyệt cập nhật qua sự kiện `storage`. Nếu trình duyệt chặn lưu trữ, số đếm chỉ giữ trong trang hiện tại.
+
+Thứ tự “Được xem nhiều” tính riêng trên từng trình duyệt, không phải thống kê chung của mọi người dùng. Xóa dữ liệu trang web sẽ xóa số đếm. Lượt click bắt đầu từ khi dùng tính năng.

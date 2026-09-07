@@ -42,29 +42,23 @@ export default async function MovieDetail({ params }: PageProps) {
             {movie.category && <div className="eyebrow">{movie.category}</div>}
             <h1>{movie.title}</h1>
             {movie.description && <p>{movie.description}</p>}
-            <div className="detailMeta">
-              <strong>{episodes.length}</strong>
-              <span>tập phim</span>
-            </div>
           </div>
         </section>
 
         <section className="episodesSection">
           <div className="sectionHeading">
             <div>
-              <div className="eyebrow">EPISODES</div>
-              <h2>Danh sách tập</h2>
+              <div className="eyebrow">WATCH</div>
+              <h2>Liên kết xem phim</h2>
             </div>
-            <span>{episodes.length} tập</span>
           </div>
 
           {episodes.length > 0 ? (
             <div className="episodeList">
-              {episodes.map((episode) => (
-                <article className="episodeRow" key={episode.id}>
-                  <div className="episodeNumber">{String(episode.episode).padStart(2, "0")}</div>
+              {episodes.map((episode, index) => (
+                <article className="episodeRow" key={`${episode.id}-${index}`}>
                   <div className="episodeMain">
-                    <strong>{episode.title}</strong>
+                    <strong>Xem trên {platformLabel(episode.platform)}</strong>
                     <span className={`platformBadge inline ${episode.platform}`}>
                       {platformLabel(episode.platform)}
                     </span>
@@ -77,8 +71,8 @@ export default async function MovieDetail({ params }: PageProps) {
             </div>
           ) : (
             <div className="emptyState">
-              <strong>Chưa có tập phim.</strong>
-              <span>Thêm tập vào sheet “episodes” trong data/movies.xlsx.</span>
+              <strong>Chưa có liên kết xem phim.</strong>
+              <span>Vui lòng quay lại sau.</span>
             </div>
           )}
         </section>

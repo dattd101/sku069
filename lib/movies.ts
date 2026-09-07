@@ -23,7 +23,6 @@ export type Episode = {
 };
 
 export type MovieSummary = Movie & {
-  episodeCount: number;
   platforms: string[];
 };
 
@@ -112,7 +111,8 @@ function parseEpisodes(rows: ExcelRow[]): Episode[] {
 
 export async function getCatalog() {
   const workbook = readWorkbook();
-  const movies = parseMovies(readRows(workbook, "movies"));
+  // Phim mới được thêm ở cuối sheet sẽ xuất hiện đầu danh sách.
+  const movies = parseMovies(readRows(workbook, "movies")).reverse();
   const episodes = parseEpisodes(readRows(workbook, "episodes"));
 
   return { movies, episodes };
@@ -129,7 +129,6 @@ export async function getMovieSummaries(): Promise<MovieSummary[]> {
 
     return {
       ...movie,
-      episodeCount: movieEpisodes.length,
       platforms,
     };
   });
